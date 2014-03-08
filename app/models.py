@@ -1,8 +1,9 @@
 from app import db
+from flask.ext.login import UserMixin
 
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     password = db.Column(db.String(100))
@@ -13,7 +14,7 @@ class User(db.Model):
 class Songs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True)
-    songs = db.relationship('Playlist', backref='song_list', lazy='dynamic')
+    playlist = db.relationship('Playlist', backref='song_list', lazy='dynamic')
 
 class Playlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
